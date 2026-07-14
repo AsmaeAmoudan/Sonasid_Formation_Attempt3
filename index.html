@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord — Sonasid Formation</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          'sonasid-bg': '#F4F5F6','sonasid-dark': '#1E2530','sonasid-steel': '#3D5266',
+          'sonasid-green': '#2FA36B','sonasid-orange': '#C97A3D',
+          'sonasid-success': '#3F9463','sonasid-warning': '#D98A2E','sonasid-danger': '#C94C3D'
+        },
+        fontFamily: { display: ['Oswald', 'sans-serif'], body: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }
+      }}
+    }
+  </script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+<body data-sidebar="dashboard">
+
+  <!-- Hôte sidebar (injectée par app.js) -->
+  <div data-sidebar-host></div>
+
+  <div class="main-content">
+
+    <!-- Topbar injecté -->
+    <div data-topbar-host
+         data-breadcrumb="Sonasid Formation · Pilotage"
+         data-heading="Tableau de bord"></div>
+
+    <main class="page-body">
+
+      <!-- Bandeau de contexte — exercice & site -->
+      <section class="panel mb-6" aria-label="Contexte de pilotage">
+        <div class="panel__body flex flex-wrap items-center gap-6 justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="live-dot" aria-hidden="true"></span>
+              <span class="text-xs uppercase tracking-widest text-muted font-semibold">Exercice 2026 · Données temps réel simulé</span>
+            </div>
+            <h2 class="font-display text-xl">Pilotage annuel de la formation — Sonasid</h2>
+            <p class="text-sm text-secondary mt-1">
+              Couverture : sites de Nador (production) et Casablanca (siège).
+              Sources agrégées : catalogue interne, ERP RH, formulaires OFPPT — <span class="font-mono text-xs">mis à jour le 09/04/2026 à 08:42</span>.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <a href="sessions.html" class="btn btn--ghost btn--sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
+              Planning des sessions
+            </a>
+            <a href="budget.html" class="btn btn--primary btn--sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              Pilotage budgétaire
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- KPI signature — 6 cartes en cascade -->
+      <section class="kpi-grid mb-6" aria-label="Indicateurs clés">
+
+        <!-- KPI 1 : Taux de réalisation du plan -->
+        <div class="kpi-card">
+          <div class="kpi-card__header">
+            <div>
+              <div class="kpi-card__label">Taux de réalisation du plan</div>
+              <div class="kpi-card__delta kpi-card__delta--up">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                +6 pts vs T-1
+              </div>
+            </div>
+            <div class="kpi-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg>
+            </div>
+          </div>
+          <div class="kpi-card__value">
+            <span data-count-up data-target="68" data-format="int">0</span><span class="unit">%</span>
+          </div>
+          <div class="kpi-card__caption">15 sessions terminées ou en cours sur 22 planifiées à l'année.</div>
+          <div class="kpi-card__gauge-row">
+            <svg class="s-gauge" viewBox="0 0 200 56" preserveAspectRatio="none" data-pct="68" data-delay="400" role="img" aria-label="Progression 68%">
+              <path class="s-gauge__track" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <path class="s-gauge__fill" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <circle class="s-gauge__endpoint" cx="8" cy="44" r="4.5"/>
+            </svg>
+            <span class="kpi-card__pct">68%</span>
+          </div>
+        </div>
+
+        <!-- KPI 2 : Collaborateurs formés -->
+        <div class="kpi-card">
+          <div class="kpi-card__header">
+            <div>
+              <div class="kpi-card__label">Collaborateurs formés (cumul)</div>
+              <div class="kpi-card__delta kpi-card__delta--up">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                +124 ce trimestre
+              </div>
+            </div>
+            <div class="kpi-card__icon kpi-card__icon--steel" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/></svg>
+            </div>
+          </div>
+          <div class="kpi-card__value">
+            <span data-count-up data-target="342" data-format="int">0</span>
+          </div>
+          <div class="kpi-card__caption">Sur un effectif éligible de 1 248 collaborateurs (Nador + Casablanca).</div>
+          <div class="kpi-card__gauge-row">
+            <svg class="s-gauge" viewBox="0 0 200 56" preserveAspectRatio="none" data-pct="27" data-delay="500" role="img" aria-label="Progression 27%">
+              <path class="s-gauge__track" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <path class="s-gauge__fill s-gauge__fill--steel" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <circle class="s-gauge__endpoint" cx="8" cy="44" r="4.5" style="stroke: var(--sonasid-steel);"/>
+            </svg>
+            <span class="kpi-card__pct" style="color: var(--sonasid-steel);">27%</span>
+          </div>
+        </div>
+
+        <!-- KPI 3 : Consommation budgétaire -->
+        <div class="kpi-card">
+          <div class="kpi-card__header">
+            <div>
+              <div class="kpi-card__label">Consommation budgétaire</div>
+              <div class="kpi-card__delta kpi-card__delta--neutral">53% de l'enveloppe</div>
+            </div>
+            <div class="kpi-card__icon kpi-card__icon--orange" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M16 12h2M3 9h18"/></svg>
+            </div>
+          </div>
+          <div class="kpi-card__value">
+            <span data-count-up data-target="612400" data-format="mad">0</span>
+          </div>
+          <div class="kpi-card__caption">Sur une enveloppe annuelle de 1 850 000 MAD.</div>
+          <div class="kpi-card__gauge-row">
+            <svg class="s-gauge" viewBox="0 0 200 56" preserveAspectRatio="none" data-pct="33" data-delay="600" role="img" aria-label="Progression 33%">
+              <path class="s-gauge__track" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <path class="s-gauge__fill s-gauge__fill--orange" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <circle class="s-gauge__endpoint" cx="8" cy="44" r="4.5" style="stroke: var(--sonasid-orange);"/>
+            </svg>
+            <span class="kpi-card__pct" style="color: var(--sonasid-orange);">33%</span>
+          </div>
+        </div>
+
+        <!-- KPI 4 : Heures de formation / collaborateur -->
+        <div class="kpi-card">
+          <div class="kpi-card__header">
+            <div>
+              <div class="kpi-card__label">Heures / collaborateur formé</div>
+              <div class="kpi-card__delta kpi-card__delta--up">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                +2,4 h
+              </div>
+            </div>
+            <div class="kpi-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </div>
+          </div>
+          <div class="kpi-card__value">
+            <span data-count-up data-target="18.6" data-format="decimal">0</span><span class="unit">h</span>
+          </div>
+          <div class="kpi-card__caption">Objectif annuel : 24 h / collaborateur (plan de développement RH 2026).</div>
+          <div class="kpi-card__gauge-row">
+            <svg class="s-gauge" viewBox="0 0 200 56" preserveAspectRatio="none" data-pct="78" data-delay="700" role="img" aria-label="Progression 78%">
+              <path class="s-gauge__track" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <path class="s-gauge__fill" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <circle class="s-gauge__endpoint" cx="8" cy="44" r="4.5"/>
+            </svg>
+            <span class="kpi-card__pct">78%</span>
+          </div>
+        </div>
+
+        <!-- KPI 5 : Taux d'abandon -->
+        <div class="kpi-card">
+          <div class="kpi-card__header">
+            <div>
+              <div class="kpi-card__label">Taux d'abandon sessions</div>
+              <div class="kpi-card__delta kpi-card__delta--down">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                -1,2 pt vs T-1
+              </div>
+            </div>
+            <div class="kpi-card__icon kpi-card__icon--orange" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </div>
+          </div>
+          <div class="kpi-card__value">
+            <span data-count-up data-target="4.8" data-format="decimal">0</span><span class="unit">%</span>
+          </div>
+          <div class="kpi-card__caption">3 abandons sur 62 inscriptions — sous le seuil d'alerte de 6%.</div>
+          <div class="kpi-card__gauge-row">
+            <svg class="s-gauge" viewBox="0 0 200 56" preserveAspectRatio="none" data-pct="5" data-delay="800" role="img" aria-label="Progression 5%">
+              <path class="s-gauge__track" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <path class="s-gauge__fill s-gauge__fill--orange" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <circle class="s-gauge__endpoint" cx="8" cy="44" r="4.5" style="stroke: var(--sonasid-orange);"/>
+            </svg>
+            <span class="kpi-card__pct" style="color: var(--sonasid-orange);">5%</span>
+          </div>
+        </div>
+
+        <!-- KPI 6 : Satisfaction moyenne -->
+        <div class="kpi-card">
+          <div class="kpi-card__header">
+            <div>
+              <div class="kpi-card__label">Satisfaction moyenne</div>
+              <div class="kpi-card__delta kpi-card__delta--up">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                +0,2 pt
+              </div>
+            </div>
+            <div class="kpi-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4.5L6 22l1.5-8.5L2 9h7z"/></svg>
+            </div>
+          </div>
+          <div class="kpi-card__value">
+            <span data-count-up data-target="4.4" data-format="decimal">0</span><span class="unit">/ 5</span>
+          </div>
+          <div class="kpi-card__caption">Moyenne pondérée sur 14 évaluations post-formation recueillies.</div>
+          <div class="kpi-card__gauge-row">
+            <svg class="s-gauge" viewBox="0 0 200 56" preserveAspectRatio="none" data-pct="88" data-delay="900" role="img" aria-label="Progression 88%">
+              <path class="s-gauge__track" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <path class="s-gauge__fill" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <circle class="s-gauge__endpoint" cx="8" cy="44" r="4.5"/>
+            </svg>
+            <span class="kpi-card__pct">88%</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Deux colonnes : activité du mois + alertes -->
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+
+        <!-- Activité récente -->
+        <div class="panel lg:col-span-2" data-aos="fade-up">
+          <div class="panel__header">
+            <div>
+              <div class="panel__title">Activité formations — Avril 2026</div>
+              <div class="panel__subtitle">Sessions terminées ou en cours sur le mois courant</div>
+            </div>
+            <a href="sessions.html" class="btn btn--ghost btn--sm">Voir tout</a>
+          </div>
+          <div class="panel__body--flush">
+            <div class="scrollable-x">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Session</th>
+                    <th class="hide-mobile">Formation</th>
+                    <th>Période</th>
+                    <th class="hide-mobile">Inscrits</th>
+                    <th>Statut</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-sessions-body">
+                  <!-- Rempli par JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alertes / échéances -->
+        <div class="panel" data-aos="fade-up" data-aos-delay="100">
+          <div class="panel__header">
+            <div>
+              <div class="panel__title">Alertes & échéances</div>
+              <div class="panel__subtitle">Habilitations, recyclages, dérives budget</div>
+            </div>
+          </div>
+          <div class="panel__body" id="alerts-body">
+            <!-- Rempli par JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Section : répartition par catégorie -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+
+        <div class="panel" data-aos="fade-up">
+          <div class="panel__header">
+            <div>
+              <div class="panel__title">Répartition des sessions par catégorie</div>
+              <div class="panel__subtitle">Année 2026 — 22 sessions planifiées</div>
+            </div>
+            <a href="formations.html" class="btn btn--ghost btn--sm">Catalogue</a>
+          </div>
+          <div class="panel__body" id="categories-breakdown">
+            <!-- Rempli par JS -->
+          </div>
+        </div>
+
+        <div class="panel" data-aos="fade-up" data-aos-delay="100">
+          <div class="panel__header">
+            <div>
+              <div class="panel__title">Top formations — satisfaction</div>
+              <div class="panel__subtitle">Les mieux notées ce trimestre</div>
+            </div>
+            <a href="evaluations.html" class="btn btn--ghost btn--sm">Évaluations</a>
+          </div>
+          <div class="panel__body" id="top-formations-body">
+            <!-- Rempli par JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Rappel des modules à venir -->
+      <section class="panel" data-aos="fade-up">
+        <div class="panel__header">
+          <div>
+            <div class="panel__title">Modules complémentaires — feuille de route</div>
+            <div class="panel__subtitle">Sujets identifiés lors de la phase de cadrage RH, planifiés en V2</div>
+          </div>
+        </div>
+        <div class="panel__body grid grid-cols-1 md:grid-cols-3 gap-4">
+
+          <div class="border border-sonasid-bg rounded-lg p-5 bg-soft">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-9 h-9 rounded-lg grid place-items-center" style="background: rgba(201,122,61,0.12); color: var(--sonasid-orange);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-sm">Habilitations</div>
+                <div class="text-xs text-muted">Suivi des habilitations électriques & travail en hauteur</div>
+              </div>
+            </div>
+            <span class="badge badge--warning">Roadmap V2 — T3 2026</span>
+            <p class="text-xs text-secondary mt-3 leading-relaxed">
+              Centralisation des dates d'obtention et de recyclage, alertes automatiques 90 jours avant échéance,
+              rattachement direct aux collaborateurs et postes de travail.
+            </p>
+          </div>
+
+          <div class="border border-sonasid-bg rounded-lg p-5 bg-soft">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-9 h-9 rounded-lg grid place-items-center" style="background: rgba(63,148,99,0.12); color: var(--sonasid-success);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-sm">Visites médicales</div>
+                <div class="text-xs text-muted">Suivi médical du travail et aptitudes</div>
+              </div>
+            </div>
+            <span class="badge badge--info">Roadmap V2 — T3 2026</span>
+            <p class="text-xs text-secondary mt-3 leading-relaxed">
+              Planification des visites périodiques, suivi des aptitudes avec restrictions,
+              intégration avec le planning des sessions de formation à risque.
+            </p>
+          </div>
+
+          <div class="border border-sonasid-bg rounded-lg p-5 bg-soft">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-9 h-9 rounded-lg grid place-items-center" style="background: rgba(61,82,102,0.10); color: var(--sonasid-steel);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 3v18h18"/><path d="M7 14l3-3 4 4 5-6"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-sm">Tableaux de bord métier</div>
+                <div class="text-xs text-muted">Vues par département et par site</div>
+              </div>
+            </div>
+            <span class="badge badge--neutral">Roadmap V2 — T4 2026</span>
+            <p class="text-xs text-secondary mt-3 leading-relaxed">
+              Filtres multi-niveaux (département, site, catégorie professionnelle), exports PDF automatisés
+              pour les comités trimestriels RH et le reporting direction.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+
+  <!-- Script spécifique à la page : rendu dynamique des sections -->
+  <script>
+    // Protège la page : redirige vers login si pas de session
+    SonasidAuth.requireSession();
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+      // 1. Sessions récentes (tableau)
+      const recent = SonasidData.sessions
+        .filter(s => ["termine", "en_cours"].includes(s.statut))
+        .slice(0, 6);
+      const tbody = document.getElementById("recent-sessions-body");
+      tbody.innerHTML = recent.map(s => `
+        <tr>
+          <td>
+            <div class="cell-strong">${s.code}</div>
+            <div class="cell-id">${s.id}</div>
+          </td>
+          <td class="hide-mobile">
+            <div class="cell-strong" style="max-width: 280px;">${s.intitule}</div>
+            <div class="cell-muted text-xs">${s.lieu}</div>
+          </td>
+          <td class="cell-mono">${SonasidHelpers.formatDate(s.dateDebut)} → ${SonasidHelpers.formatDate(s.dateFin)}</td>
+          <td class="hide-mobile">
+            <span class="font-mono">${s.inscrits}</span><span class="text-muted">/${s.places}</span>
+          </td>
+          <td>${SonasidRender.badge(s.statut)}</td>
+        </tr>
+      `).join("");
+
+      // 3. Alertes
+      const alerts = [
+        {
+          type: "warning", icon: "clock",
+          titre: "5 habilitations électriques à recycler",
+          desc: "Échéance 12 mai 2026 — collaborateurs des départements Maintenance & Production (Nador).",
+          meta: "Action requise sous 33 jours"
+        },
+        {
+          type: "info", icon: "bell",
+          titre: "Session MSP/SPC en cours",
+          desc: "SES-2026-007 — 9 présents sur 12 inscrits. Salle technique Nador.",
+          meta: "En direct"
+        },
+        {
+          type: "danger", icon: "trend",
+          titre: "Budget Sécurité à 40% consommé",
+          desc: "Catégorie Sécurité & Habilitations : vigilance sur le rythme mensuel.",
+          meta: "Pilotage budget"
+        },
+        {
+          type: "success", icon: "check",
+          titre: "Plan T1 validé à 100%",
+          desc: "Toutes les sessions du T1 2026 sont réalisées sans abandon majeur.",
+          meta: "Clôturé"
+        }
+      ];
+
+      const colorMap = {
+        warning: { bg: "rgba(217,138,46,0.10)", fg: "var(--sonasid-warning)", badge: "badge--warning" },
+        info:    { bg: "rgba(61,82,102,0.10)",  fg: "var(--sonasid-steel)",  badge: "badge--info" },
+        danger:  { bg: "rgba(201,76,61,0.10)",  fg: "var(--sonasid-danger)", badge: "badge--danger" },
+        success: { bg: "rgba(63,148,99,0.10)",  fg: "var(--sonasid-success)",badge: "badge--success" }
+      };
+
+      document.getElementById("alerts-body").innerHTML = alerts.map(a => {
+        const c = colorMap[a.type];
+        return `
+          <div class="flex gap-3 py-3 border-b border-sonasid-bg last:border-b-0">
+            <div class="w-9 h-9 rounded-lg grid place-items-center flex-shrink-0" style="background: ${c.bg}; color: ${c.fg};">
+              ${SonasidRender.icon(a.icon)}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-sm font-semibold text-sonasid-dark">${a.titre}</div>
+              <div class="text-xs text-secondary mt-1 leading-relaxed">${a.desc}</div>
+              <div class="mt-2"><span class="badge ${c.badge}">${a.meta}</span></div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // 4. Répartition par catégorie (barres horizontales)
+      const catCounts = {};
+      SonasidData.sessions.forEach(s => {
+        const f = SonasidHelpers.getFormation(s.formationId);
+        if (!f) return;
+        catCounts[f.categorie] = (catCounts[f.categorie] || 0) + 1;
+      });
+      const totalSessions = SonasidData.sessions.length;
+      const catEntries = Object.entries(catCounts).sort((a,b) => b[1] - a[1]);
+
+      document.getElementById("categories-breakdown").innerHTML = catEntries.map(([cat, count]) => {
+        const pct = Math.round((count / totalSessions) * 100);
+        return `
+          <div class="py-3 border-b border-sonasid-bg last:border-b-0">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-medium">${cat}</span>
+              <span class="font-mono text-xs text-secondary">${count} sessions · ${pct}%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar__fill" data-value="${pct}"></div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // 5. Top formations par satisfaction
+      // Calcule la note moyenne par formation
+      const notesByFormation = {};
+      SonasidData.evaluations.forEach(ev => {
+        if (!notesByFormation[ev.formationId]) notesByFormation[ev.formationId] = { sum: 0, count: 0 };
+        notesByFormation[ev.formationId].sum += ev.noteGlobale;
+        notesByFormation[ev.formationId].count++;
+      });
+      const topFormations = Object.entries(notesByFormation)
+        .map(([fid, v]) => ({ formation: SonasidHelpers.getFormation(fid), moyenne: v.sum / v.count, count: v.count }))
+        .filter(x => x.formation)
+        .sort((a,b) => b.moyenne - a.moyenne)
+        .slice(0, 5);
+
+      document.getElementById("top-formations-body").innerHTML = topFormations.map((f, i) => {
+        const pct = Math.round((f.moyenne / 5) * 100);
+        const ini = ["green", "steel", "orange"][i % 3];
+        return `
+          <div class="flex items-center gap-4 py-3 border-b border-sonasid-bg last:border-b-0">
+            <div class="w-10 h-10 rounded-lg grid place-items-center flex-shrink-0 font-display font-semibold text-white"
+                 style="background: linear-gradient(135deg, var(--sonasid-${ini === 'green' ? 'green' : ini === 'steel' ? 'steel' : 'orange'}), var(--sonasid-dark));">
+              ${(f.moyenne).toFixed(1).replace('.', ',')}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-sm font-semibold truncate">${f.formation.intitule}</div>
+              <div class="text-xs text-muted">${f.formation.code} · ${f.count} évaluations</div>
+            </div>
+            <div style="width: 90px;">
+              <div class="progress-bar"><div class="progress-bar__fill" data-value="${pct}"></div></div>
+              <div class="text-xs text-muted mt-1 text-right font-mono">${pct}%</div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    });
+  </script>
+</body>
+</html>

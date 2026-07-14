@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon profil — Sonasid Formation</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          'sonasid-bg': '#F4F5F6','sonasid-dark': '#1E2530','sonasid-steel': '#3D5266',
+          'sonasid-green': '#2FA36B','sonasid-orange': '#C97A3D',
+          'sonasid-success': '#3F9463','sonasid-warning': '#D98A2E','sonasid-danger': '#C94C3D'
+        },
+        fontFamily: { display: ['Oswald', 'sans-serif'], body: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }
+      }}
+    }
+  </script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+<body data-sidebar="profil">
+
+  <div data-sidebar-host></div>
+
+  <div class="main-content">
+
+    <div data-topbar-host
+         data-breadcrumb="Sonasid Formation · Session"
+         data-heading="Mon profil"></div>
+
+    <main class="page-body">
+
+      <!-- Bandeau profil -->
+      <section class="panel mb-6">
+        <div class="panel__body">
+          <div class="flex flex-wrap items-center gap-6">
+
+            <!-- Avatar -->
+            <div class="w-20 h-20 rounded-2xl grid place-items-center flex-shrink-0 font-display text-2xl font-semibold text-white"
+                 style="background: linear-gradient(135deg, var(--sonasid-green), #1f6d44); position: relative;">
+              NC
+              <span class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full grid place-items-center"
+                    style="background: var(--sonasid-orange); border: 3px solid var(--surface-card);">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+              </span>
+            </div>
+
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs uppercase tracking-widest text-muted font-semibold">Session active · Dernier accès il y a 2 min</span>
+              </div>
+              <h2 class="font-display text-2xl">Nadia Cherkaoui</h2>
+              <p class="text-sm text-secondary mt-1">
+                Responsable Formation & Développement · Direction des Ressources Humaines · Casablanca
+              </p>
+              <div class="flex flex-wrap items-center gap-2 mt-3">
+                <span class="badge badge--success">Administrateur</span>
+                <span class="badge badge--info">Compte vérifié</span>
+                <span class="text-xs text-muted font-mono">USR-001 · n.cherkaoui@sonasid.ma</span>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <button class="btn btn--ghost btn--sm" onclick="alert('Export RGPD à brancher sur Flask /api/profile/export')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                Exporter mes données
+              </button>
+              <button class="btn btn--secondary btn--sm" id="btn-logout">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+                Déconnexion
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Colonne gauche : formulaires -->
+        <div class="lg:col-span-2 space-y-6">
+
+          <!-- Informations personnelles -->
+          <section class="panel" data-aos="fade-up">
+            <div class="panel__header">
+              <div>
+                <div class="panel__title">Informations professionnelles</div>
+                <div class="panel__subtitle">Synchronisées depuis l'annuaire RH — modifiables sur demande</div>
+              </div>
+            </div>
+            <div class="panel__body">
+              <form id="profile-form">
+                <div class="form-grid">
+
+                  <div class="form-field">
+                    <label for="p-prenom">Prénom</label>
+                    <input type="text" id="p-prenom" class="input" value="Nadia" disabled>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="p-nom">Nom</label>
+                    <input type="text" id="p-nom" class="input" value="Cherkaoui" disabled>
+                  </div>
+
+                  <div class="form-field form-field--full">
+                    <label for="p-email">E-mail professionnel</label>
+                    <input type="email" id="p-email" class="input" value="n.cherkaoui@sonasid.ma">
+                    <div class="form-field__hint">L'e-mail sert également d'identifiant de connexion.</div>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="p-fonction">Fonction</label>
+                    <input type="text" id="p-fonction" class="input" value="Responsable Formation & Développement">
+                  </div>
+
+                  <div class="form-field">
+                    <label for="p-dept">Département</label>
+                    <input type="text" id="p-dept" class="input" value="Ressources Humaines" disabled>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="p-site">Site</label>
+                    <select id="p-site" class="select">
+                      <option>Casablanca</option>
+                      <option>Nador</option>
+                    </select>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="p-tel">Téléphone interne</label>
+                    <input type="tel" id="p-tel" class="input" value="+212 522 4XX XXX" placeholder="+212 ...">
+                  </div>
+                </div>
+
+                <div class="flex justify-end gap-2 mt-6">
+                  <button type="reset" class="btn btn--ghost btn--sm">Annuler</button>
+                  <button type="submit" class="btn btn--primary btn--sm">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                    Enregistrer
+                  </button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <!-- Préférences -->
+          <section class="panel" data-aos="fade-up" data-aos-delay="80">
+            <div class="panel__header">
+              <div>
+                <div class="panel__title">Préférences applicatives</div>
+                <div class="panel__subtitle">Personnalisation de l'expérience utilisateur</div>
+              </div>
+            </div>
+            <div class="panel__body">
+              <div class="space-y-4">
+
+                <label class="flex items-center justify-between py-2 cursor-pointer">
+                  <div>
+                    <div class="text-sm font-semibold">Notifications par e-mail</div>
+                    <div class="text-xs text-secondary">Recevoir un récapitulatif quotidien des alertes formation.</div>
+                  </div>
+                  <input type="checkbox" checked class="w-5 h-5 accent-sonasid-green">
+                </label>
+
+                <hr class="divider">
+
+                <label class="flex items-center justify-between py-2 cursor-pointer">
+                  <div>
+                    <div class="text-sm font-semibold">Réduire les animations</div>
+                    <div class="text-xs text-secondary">Désactive les transitions et effets visuels de l'interface.</div>
+                  </div>
+                  <input type="checkbox" id="pref-reduced-motion" class="w-5 h-5 accent-sonasid-green">
+                </label>
+
+                <hr class="divider">
+
+                <label class="flex items-center justify-between py-2 cursor-pointer">
+                  <div>
+                    <div class="text-sm font-semibold">Format des dates</div>
+                    <div class="text-xs text-secondary">Présentation des dates dans les tableaux et exports.</div>
+                  </div>
+                  <select class="filter-select">
+                    <option>JJ/MM/AAAA</option>
+                    <option>AAAA-MM-JJ</option>
+                    <option>JJ MMM AAAA</option>
+                  </select>
+                </label>
+
+                <hr class="divider">
+
+                <label class="flex items-center justify-between py-2 cursor-pointer">
+                  <div>
+                    <div class="text-sm font-semibold">Devise par défaut</div>
+                    <div class="text-xs text-secondary">Unité monétaire utilisée dans les vues budget.</div>
+                  </div>
+                  <select class="filter-select">
+                    <option>MAD — Dirham marocain</option>
+                    <option>EUR — Euro</option>
+                    <option>USD — Dollar</option>
+                  </select>
+                </label>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Sécurité -->
+          <section class="panel" data-aos="fade-up" data-aos-delay="120">
+            <div class="panel__header">
+              <div>
+                <div class="panel__title">Sécurité du compte</div>
+                <div class="panel__subtitle">Gestion du mot de passe et des sessions actives</div>
+              </div>
+            </div>
+            <div class="panel__body">
+              <div class="space-y-4">
+
+                <div class="flex items-center justify-between py-2">
+                  <div>
+                    <div class="text-sm font-semibold">Mot de passe</div>
+                    <div class="text-xs text-secondary">Dernière modification : 14 février 2026</div>
+                  </div>
+                  <button class="btn btn--ghost btn--sm" onclick="alert('Réinitialisation à brancher sur Flask /api/profile/password')">Modifier</button>
+                </div>
+
+                <hr class="divider">
+
+                <div class="flex items-center justify-between py-2">
+                  <div>
+                    <div class="text-sm font-semibold">Authentification à deux facteurs</div>
+                    <div class="text-xs text-secondary">Renforcer la sécurité de votre compte par code OTP.</div>
+                  </div>
+                  <span class="badge badge--warning">Non configuré</span>
+                </div>
+
+                <hr class="divider">
+
+                <div>
+                  <div class="text-sm font-semibold mb-3">Sessions actives</div>
+                  <div class="space-y-2">
+                    <div class="flex items-center gap-3 p-3 rounded-lg" style="background: rgba(63,148,99,0.06); border: 1px solid rgba(63,148,99,0.18);">
+                      <div class="w-8 h-8 rounded-lg grid place-items-center" style="background: var(--sonasid-success); color: white;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                      </div>
+                      <div class="flex-1">
+                        <div class="text-sm font-semibold">Cet appareil · Casablanca</div>
+                        <div class="text-xs text-muted font-mono">Chrome 124 · Windows 11 · session active</div>
+                      </div>
+                      <span class="live-dot" aria-hidden="true"></span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 rounded-lg" style="background: var(--surface-hover);">
+                      <div class="w-8 h-8 rounded-lg grid place-items-center" style="background: var(--sonasid-steel); color: white;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+                      </div>
+                      <div class="flex-1">
+                        <div class="text-sm font-semibold">Mobile Sonasid · Nador</div>
+                        <div class="text-xs text-muted font-mono">Safari iOS · dernière activité il y a 4 h</div>
+                      </div>
+                      <button class="btn btn--ghost btn--sm" onclick="alert('Déconnexion distante à brancher sur Flask /api/sessions/{id}')">Révoquer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Colonne droite : activité + accès -->
+        <div class="space-y-6">
+
+          <!-- KPI activité -->
+          <section class="kpi-grid" data-aos="fade-up" style="grid-template-columns: 1fr;">
+            <div class="kpi-card">
+              <div class="kpi-card__header">
+                <div><div class="kpi-card__label">Actions ce mois</div></div>
+                <div class="kpi-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 17l6-6 4 4 8-8"/></svg>
+                </div>
+              </div>
+              <div class="kpi-card__value"><span data-count-up data-target="247" data-format="int">0</span></div>
+              <div class="kpi-card__caption">Consultations, modifications, exports cumulés.</div>
+              <div class="kpi-card__gauge-row">
+                <svg class="s-gauge" viewBox="0 0 200 56" preserveAspectRatio="none" data-pct="62" data-delay="400" role="img" aria-label="Progression 62%">
+                  <path class="s-gauge__track" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+                  <path class="s-gauge__fill" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+                  <circle class="s-gauge__endpoint" cx="8" cy="44" r="4.5"/>
+                </svg>
+                <span class="kpi-card__pct">62%</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Récents accès -->
+          <section class="panel" data-aos="fade-up" data-aos-delay="80">
+            <div class="panel__header">
+              <div>
+                <div class="panel__title">Dernières connexions</div>
+                <div class="panel__subtitle">Historique sur 7 jours</div>
+              </div>
+            </div>
+            <div class="panel__body">
+              <div class="space-y-3">
+                <div class="flex items-start gap-3">
+                  <div class="w-2 h-2 rounded-full mt-1.5" style="background: var(--sonasid-success);"></div>
+                  <div class="flex-1">
+                    <div class="text-sm font-medium">Connexion réussie</div>
+                    <div class="text-xs text-muted font-mono">09/04/2026 · 08:42 · Casablanca</div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-2 h-2 rounded-full mt-1.5" style="background: var(--sonasid-steel);"></div>
+                  <div class="flex-1">
+                    <div class="text-sm font-medium">Déconnexion manuelle</div>
+                    <div class="text-xs text-muted font-mono">08/04/2026 · 17:11 · Casablanca</div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-2 h-2 rounded-full mt-1.5" style="background: var(--sonasid-steel);"></div>
+                  <div class="flex-1">
+                    <div class="text-sm font-medium">Connexion réussie</div>
+                    <div class="text-xs text-muted font-mono">08/04/2026 · 07:55 · Casablanca</div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-2 h-2 rounded-full mt-1.5" style="background: var(--sonasid-warning);"></div>
+                  <div class="flex-1">
+                    <div class="text-sm font-medium">Échec de connexion</div>
+                    <div class="text-xs text-muted font-mono">07/04/2026 · 14:20 · IP inconnue (Nador)</div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <div class="w-2 h-2 rounded-full mt-1.5" style="background: var(--sonasid-steel);"></div>
+                  <div class="flex-1">
+                    <div class="text-sm font-medium">Connexion réussie</div>
+                    <div class="text-xs text-muted font-mono">07/04/2026 · 14:18 · Nador</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Périmètre d'accès -->
+          <section class="panel" data-aos="fade-up" data-aos-delay="120">
+            <div class="panel__header">
+              <div>
+                <div class="panel__title">Périmètre d'accès</div>
+                <div class="panel__subtitle">Modules accessibles selon votre rôle</div>
+              </div>
+            </div>
+            <div class="panel__body">
+              <div class="space-y-2 text-sm">
+                <div class="flex items-center justify-between py-1">
+                  <span class="flex items-center gap-2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sonasid-success)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                    Tableau de bord
+                  </span>
+                  <span class="text-xs text-muted">Lecture</span>
+                </div>
+                <div class="flex items-center justify-between py-1">
+                  <span class="flex items-center gap-2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sonasid-success)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                    Effectif & collaborateurs
+                  </span>
+                  <span class="text-xs text-muted">Lecture + écriture</span>
+                </div>
+                <div class="flex items-center justify-between py-1">
+                  <span class="flex items-center gap-2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sonasid-success)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                    Catalogue formations
+                  </span>
+                  <span class="text-xs text-muted">Lecture + écriture</span>
+                </div>
+                <div class="flex items-center justify-between py-1">
+                  <span class="flex items-center gap-2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sonasid-success)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                    Sessions & réalisations
+                  </span>
+                  <span class="text-xs text-muted">Lecture + écriture</span>
+                </div>
+                <div class="flex items-center justify-between py-1">
+                  <span class="flex items-center gap-2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sonasid-success)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                    Budget formation
+                  </span>
+                  <span class="text-xs text-muted">Lecture + ajustement</span>
+                </div>
+                <div class="flex items-center justify-between py-1">
+                  <span class="flex items-center gap-2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sonasid-success)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                    Utilisateurs & rôles
+                  </span>
+                  <span class="text-xs text-muted">Administration</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    SonasidAuth.requireSession();
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+      // Soumission formulaire profil
+      document.getElementById("profile-form").addEventListener("submit", e => {
+        e.preventDefault();
+        // TODO FLASK : fetch('/api/profile', { method: 'PATCH', body: JSON.stringify({...}) })
+        const btn = e.target.querySelector("button[type=submit]");
+        const original = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner" aria-hidden="true"></span> Enregistrement…';
+        setTimeout(() => {
+          btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Enregistré';
+          setTimeout(() => {
+            btn.innerHTML = original;
+            btn.disabled = false;
+          }, 1800);
+        }, 800);
+      });
+
+      // Déconnexion
+      document.getElementById("btn-logout").addEventListener("click", () => SonasidAuth.logout());
+
+      // Préférence reduced motion (locale, non persistée)
+      const prefReducedMotion = document.getElementById("pref-reduced-motion");
+      // Pré-rempli si l'utilisateur a déjà la préférence système
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        prefReducedMotion.checked = true;
+      }
+      prefReducedMotion.addEventListener("change", e => {
+        if (e.target.checked) {
+          document.documentElement.style.setProperty("--t-fast", "0.01ms");
+          document.documentElement.style.setProperty("--t-base", "0.01ms");
+          document.documentElement.style.setProperty("--t-slow", "0.01ms");
+          document.querySelectorAll(".kpi-card").forEach(c => { c.style.animation = "none"; });
+          document.querySelectorAll(".s-gauge__fill").forEach(f => { f.style.transition = "none"; });
+        } else {
+          document.documentElement.style.removeProperty("--t-fast");
+          document.documentElement.style.removeProperty("--t-base");
+          document.documentElement.style.removeProperty("--t-slow");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sessions de formation — Sonasid Formation</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          'sonasid-bg': '#F4F5F6','sonasid-dark': '#1E2530','sonasid-steel': '#3D5266',
+          'sonasid-green': '#2FA36B','sonasid-orange': '#C97A3D',
+          'sonasid-success': '#3F9463','sonasid-warning': '#D98A2E','sonasid-danger': '#C94C3D'
+        },
+        fontFamily: { display: ['Oswald', 'sans-serif'], body: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }
+      }}
+    }
+  </script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+<body data-sidebar="sessions">
+
+  <div data-sidebar-host></div>
+
+  <div class="main-content">
+
+    <div data-topbar-host
+         data-breadcrumb="Sonasid Formation · Pilotage"
+         data-heading="Sessions de formation"></div>
+
+    <main class="page-body">
+
+      <!-- Bandeau -->
+      <section class="panel mb-6">
+        <div class="panel__body flex flex-wrap items-center gap-6 justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs uppercase tracking-widest text-muted font-semibold">Plan annuel 2026 · 22 sessions programmées</span>
+            </div>
+            <h2 class="font-display text-xl">Sessions de formation</h2>
+            <p class="text-sm text-secondary mt-1">
+              Calendrier consolidé des sessions planifiées, en cours et terminées.
+              Chaque session est rattachée à une formation du catalogue et expose son taux de remplissage.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="btn btn--ghost btn--sm" onclick="alert('Export planning à brancher sur Flask /api/sessions/export')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Export planning
+            </button>
+            <button class="btn btn--primary btn--sm" id="btn-add-session">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              Planifier une session
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- KPI -->
+      <section class="kpi-grid mb-6">
+        <div class="kpi-card">
+          <div class="kpi-card__header">
+            <div><div class="kpi-card__label">Sessions planifiées (année)</div></div>
+            <div class="kpi-card__icon kpi-card__icon--steel" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
+            </div>
+          </div>
+          <div class="kpi-card__value"><span data-count-up data-target="22" data-format="int">0</span></div>
+          <div class="kpi-card__caption">Dont 6 terminées, 3 en cours et 13 planifiées.</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-card__header">
+            <div><div class="kpi-card__label">Taux moyen de remplissage</div></div>
+            <div class="kpi-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 17l6-6 4 4 8-8"/></svg>
+            </div>
+          </div>
+          <div class="kpi-card__value"><span data-count-up data-target="86" data-format="int">0</span><span class="unit">%</span></div>
+          <div class="kpi-card__caption">Moyenne pondérée par nombre d'inscrits vs places.</div>
+          <div class="kpi-card__gauge-row">
+            <svg class="s-gauge" viewBox="0 0 200 56" preserveAspectRatio="none" data-pct="86" data-delay="500" role="img" aria-label="Progression 86%">
+              <path class="s-gauge__track" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <path class="s-gauge__fill" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <circle class="s-gauge__endpoint" cx="8" cy="44" r="4.5"/>
+            </svg>
+            <span class="kpi-card__pct">86%</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-card__header">
+            <div><div class="kpi-card__label">Heures réalisées</div></div>
+            <div class="kpi-card__icon kpi-card__icon--orange" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </div>
+          </div>
+          <div class="kpi-card__value"><span data-count-up data-target="6372" data-format="int">0</span><span class="unit">h</span></div>
+          <div class="kpi-card__caption">Cumul des heures-stagiaires sur les sessions terminées.</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-card__header">
+            <div><div class="kpi-card__label">Sessions à risque (remplissage &lt; 60%)</div></div>
+            <div class="kpi-card__icon kpi-card__icon--orange" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+            </div>
+          </div>
+          <div class="kpi-card__value"><span data-count-up data-target="2" data-format="int">0</span></div>
+          <div class="kpi-card__caption">Sessions planifiées à risque — recaler ou communiquer.</div>
+          <div class="kpi-card__gauge-row">
+            <svg class="s-gauge" viewBox="0 0 200 56" preserveAspectRatio="none" data-pct="9" data-delay="600" role="img" aria-label="Progression 9%">
+              <path class="s-gauge__track" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <path class="s-gauge__fill s-gauge__fill--orange" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <circle class="s-gauge__endpoint" cx="8" cy="44" r="4.5" style="stroke: var(--sonasid-orange);"/>
+            </svg>
+            <span class="kpi-card__pct" style="color: var(--sonasid-orange);">9%</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tableau -->
+      <section class="panel" data-aos="fade-up">
+        <div class="panel__header">
+          <div>
+            <div class="panel__title">Planning détaillé des sessions</div>
+            <div class="panel__subtitle">Toutes sessions confondues — tri par date de début</div>
+          </div>
+          <div class="toolbar__group" role="tablist" aria-label="Filtrer par statut">
+            <button class="toolbar__chip is-active" data-statut="">Toutes</button>
+            <button class="toolbar__chip" data-statut="planifie">Planifiées</button>
+            <button class="toolbar__chip" data-statut="en_cours">En cours</button>
+            <button class="toolbar__chip" data-statut="termine">Terminées</button>
+          </div>
+        </div>
+
+        <div class="panel__body--flush">
+          <div class="scrollable-x">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Session</th>
+                  <th>Formation</th>
+                  <th class="hide-mobile">Période</th>
+                  <th class="hide-mobile">Formateur</th>
+                  <th class="hide-mobile">Lieu</th>
+                  <th>Remplissage</th>
+                  <th>Statut</th>
+                  <th class="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="sessions-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal de planification -->
+  <div class="modal-overlay" id="session-modal" role="dialog" aria-modal="true" aria-labelledby="session-modal-title">
+    <div class="modal">
+      <div class="modal__header">
+        <div>
+          <div class="modal__title" id="session-modal-title">Planifier une session</div>
+          <div class="text-xs text-muted mt-1">Création d'une session — écrit en mémoire (mock).</div>
+        </div>
+        <button class="modal__close" id="session-modal-close" aria-label="Fermer">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="session-form" novalidate>
+        <div class="modal__body">
+          <div class="form-grid">
+
+            <div class="form-field form-field--full">
+              <label for="s-formation">Formation du catalogue <span class="req">*</span></label>
+              <select id="s-formation" class="select" required>
+                <option value="">— Sélectionner une formation —</option>
+              </select>
+              <div class="form-field__error"><span>Veuillez sélectionner une formation.</span></div>
+            </div>
+
+            <div class="form-field">
+              <label for="s-debut">Date de début <span class="req">*</span></label>
+              <input type="date" id="s-debut" class="input" required>
+              <div class="form-field__error"><span>La date de début est obligatoire.</span></div>
+            </div>
+
+            <div class="form-field">
+              <label for="s-fin">Date de fin <span class="req">*</span></label>
+              <input type="date" id="s-fin" class="input" required>
+              <div class="form-field__error"><span>La date de fin doit être postérieure au début.</span></div>
+            </div>
+
+            <div class="form-field">
+              <label for="s-formateur">Formateur / animateur</label>
+              <input type="text" id="s-formateur" class="input" placeholder="Ex : M. Pascal Brun (Apave)">
+            </div>
+
+            <div class="form-field">
+              <label for="s-lieu">Lieu</label>
+              <select id="s-lieu" class="select">
+                <option>Salle HSE — Nador</option>
+                <option>Salle technique — Nador</option>
+                <option>Salle conf. — Casablanca</option>
+                <option>Atelier laminage — Nador</option>
+                <option>Centre de formation — Casablanca</option>
+                <option>Distanciel — Teams</option>
+                <option>Distanciel — Zoom</option>
+                <option>Mixte — Casablanca + Teams</option>
+                <option>OFPPT Nador</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="s-places">Nombre de places <span class="req">*</span></label>
+              <input type="number" id="s-places" class="input" min="1" max="50" value="12" required>
+              <div class="form-field__error"><span>Le nombre de places doit être positif.</span></div>
+            </div>
+
+            <div class="form-field">
+              <label for="s-statut">Statut initial</label>
+              <select id="s-statut" class="select">
+                <option value="planifie">Planifiée</option>
+                <option value="en_cours">En cours</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal__footer">
+          <button type="button" class="btn btn--ghost" id="session-modal-cancel">Annuler</button>
+          <button type="submit" class="btn btn--primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            Planifier
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    SonasidAuth.requireSession();
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+      let sessions = SonasidData.sessions.slice();
+      let currentStatut = "";
+
+      // Peuple le select de formations
+      const formSelect = document.getElementById("s-formation");
+      SonasidData.catalogue
+        .filter(f => f.valide)
+        .forEach(f => {
+          const opt = document.createElement("option");
+          opt.value = f.id;
+          opt.textContent = `${f.code} — ${f.intitule}`;
+          formSelect.appendChild(opt);
+        });
+
+      function renderTable() {
+        const rows = sessions
+          .filter(s => !currentStatut || s.statut === currentStatut)
+          .sort((a,b) => a.dateDebut.localeCompare(b.dateDebut));
+
+        const tbody = document.getElementById("sessions-body");
+        if (!rows.length) {
+          tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state">
+            <div class="empty-state__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div>
+            <div class="empty-state__title">Aucune session dans ce filtre</div>
+          </div></td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = rows.map((s, i) => {
+          const pct = SonasidHelpers.tauxRemplissage(s);
+          const fillCls = pct >= 80 ? "" : pct >= 60 ? "progress-bar__fill--steel" : "progress-bar__fill--orange";
+          return `
+            <tr data-aos="fade-up" data-aos-delay="${Math.min(i, 8) * 40}">
+              <td>
+                <div class="cell-strong">${s.code}</div>
+                <div class="cell-id">${s.id}</div>
+              </td>
+              <td>
+                <div class="cell-strong" style="max-width: 280px;">${s.intitule}</div>
+                <div class="cell-muted text-xs">${s.heures} h</div>
+              </td>
+              <td class="hide-mobile cell-mono">${SonasidHelpers.formatDate(s.dateDebut)} → ${SonasidHelpers.formatDate(s.dateFin)}</td>
+              <td class="hide-mobile cell-secondary">${s.formateur}</td>
+              <td class="hide-mobile">
+                <div class="flex items-center gap-1.5 text-xs">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" class="text-muted"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  ${s.lieu}
+                </div>
+              </td>
+              <td>
+                <div class="flex items-center gap-2">
+                  <span class="font-mono text-xs">${s.inscrits}/${s.places}</span>
+                  <div style="width: 70px;">
+                    <div class="progress-bar"><div class="progress-bar__fill ${fillCls}" data-value="${pct}"></div></div>
+                  </div>
+                </div>
+              </td>
+              <td>${SonasidRender.badge(s.statut)}</td>
+              <td class="text-right">
+                <button class="topbar__icon-btn" aria-label="Détails" style="display: inline-grid; width: 32px; height: 32px;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </td>
+            </tr>`;
+        }).join("");
+
+        // Anime les barres fraîchement injectées
+        document.querySelectorAll("#sessions-body .progress-bar__fill").forEach(b => {
+          const v = b.dataset.value;
+          setTimeout(() => { b.style.width = v + "%"; }, 200);
+        });
+      }
+
+      // Filtres
+      document.querySelectorAll("[data-statut]").forEach(chip => {
+        chip.addEventListener("click", () => {
+          document.querySelectorAll("[data-statut]").forEach(c => c.classList.remove("is-active"));
+          chip.classList.add("is-active");
+          currentStatut = chip.dataset.statut;
+          renderTable();
+        });
+      });
+
+      // Modal
+      const modal = document.getElementById("session-modal");
+      const form = document.getElementById("session-form");
+
+      function openModal() {
+        form.reset();
+        document.getElementById("s-places").value = 12;
+        document.getElementById("s-statut").value = "planifie";
+        form.querySelectorAll(".form-field").forEach(f => f.classList.remove("is-invalid"));
+        modal.classList.add("is-open");
+        setTimeout(() => document.getElementById("s-formation").focus(), 100);
+      }
+      function closeModal() { modal.classList.remove("is-open"); }
+
+      document.getElementById("btn-add-session").addEventListener("click", openModal);
+      document.getElementById("session-modal-close").addEventListener("click", closeModal);
+      document.getElementById("session-modal-cancel").addEventListener("click", closeModal);
+      modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+      document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+      form.addEventListener("submit", e => {
+        e.preventDefault();
+
+        let valid = true;
+        const required = [
+          { id: "s-formation", test: v => v.trim().length > 0 },
+          { id: "s-debut", test: v => v.trim().length > 0 },
+          { id: "s-fin", test: v => v.trim().length > 0 },
+          { id: "s-places", test: v => !isNaN(v) && parseInt(v) > 0 }
+        ];
+        required.forEach(r => {
+          const input = document.getElementById(r.id);
+          const field = input.closest(".form-field");
+          if (!r.test(input.value)) {
+            field.classList.add("is-invalid");
+            valid = false;
+          } else {
+            field.classList.remove("is-invalid");
+          }
+        });
+
+        // Vérifie dates
+        const debut = document.getElementById("s-debut").value;
+        const fin = document.getElementById("s-fin").value;
+        if (debut && fin && fin < debut) {
+          document.getElementById("s-fin").closest(".form-field").classList.add("is-invalid");
+          valid = false;
+        }
+
+        if (!valid) return;
+
+        const formationId = document.getElementById("s-formation").value;
+        const f = SonasidHelpers.getFormation(formationId);
+        const year = new Date(debut).getFullYear();
+        const newId = `SES-${year}-${String(sessions.length + 1).padStart(3, "0")}`;
+
+        const payload = {
+          id: newId,
+          formationId: formationId,
+          code: f.code,
+          intitule: f.intitule,
+          dateDebut: debut,
+          dateFin: fin,
+          formateur: document.getElementById("s-formateur").value.trim() || "À confirmer",
+          lieu: document.getElementById("s-lieu").value,
+          inscrits: 0,
+          places: parseInt(document.getElementById("s-places").value),
+          statut: document.getElementById("s-statut").value,
+          heures: f.dureeH
+        };
+
+        // TODO FLASK : fetch('/api/sessions', { method: 'POST', body: JSON.stringify(payload) })
+        sessions.push(payload);
+        closeModal();
+        renderTable();
+      });
+
+      renderTable();
+    });
+  </script>
+</body>
+</html>

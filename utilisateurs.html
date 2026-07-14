@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utilisateurs — Sonasid Formation</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          'sonasid-bg': '#F4F5F6','sonasid-dark': '#1E2530','sonasid-steel': '#3D5266',
+          'sonasid-green': '#2FA36B','sonasid-orange': '#C97A3D',
+          'sonasid-success': '#3F9463','sonasid-warning': '#D98A2E','sonasid-danger': '#C94C3D'
+        },
+        fontFamily: { display: ['Oswald', 'sans-serif'], body: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }
+      }}
+    }
+  </script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+<body data-sidebar="utilisateurs">
+
+  <div data-sidebar-host></div>
+
+  <div class="main-content">
+
+    <div data-topbar-host
+         data-breadcrumb="Sonasid Formation · Administration"
+         data-heading="Utilisateurs"></div>
+
+    <main class="page-body">
+
+      <!-- Bandeau -->
+      <section class="panel mb-6">
+        <div class="panel__body flex flex-wrap items-center gap-6 justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs uppercase tracking-widest text-muted font-semibold">Gestion des accès applicatifs · 10 comptes actifs</span>
+            </div>
+            <h2 class="font-display text-xl">Utilisateurs de l'application</h2>
+            <p class="text-sm text-secondary mt-1">
+              Comptes internes habilités à accéder à la plateforme Sonasid Formation.
+              Les rôles déterminent les périmètres de lecture, écriture et administration.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="btn btn--ghost btn--sm" onclick="alert('Export à brancher sur Flask /api/utilisateurs/export')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Export
+            </button>
+            <button class="btn btn--primary btn--sm" id="btn-add-user">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              Nouvel utilisateur
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- KPI -->
+      <section class="kpi-grid mb-6">
+        <div class="kpi-card">
+          <div class="kpi-card__header">
+            <div><div class="kpi-card__label">Utilisateurs actifs</div></div>
+            <div class="kpi-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/></svg>
+            </div>
+          </div>
+          <div class="kpi-card__value"><span data-count-up data-target="9" data-format="int">0</span><span class="unit">/ 10</span></div>
+          <div class="kpi-card__caption">1 compte désactivé (Brahim Saidi — accès expiré).</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-card__header">
+            <div><div class="kpi-card__label">Administrateurs</div></div>
+            <div class="kpi-card__icon kpi-card__icon--steel" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+          </div>
+          <div class="kpi-card__value"><span data-count-up data-target="1" data-format="int">0</span></div>
+          <div class="kpi-card__caption">Compte Nadia Cherkaoui — direction RH Sonasid.</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-card__header">
+            <div><div class="kpi-card__label">Gestionnaires formation</div></div>
+            <div class="kpi-card__icon kpi-card__icon--orange" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M17 3l4 4-11 11H6v-4z"/></svg>
+            </div>
+          </div>
+          <div class="kpi-card__value"><span data-count-up data-target="2" data-format="int">0</span></div>
+          <div class="kpi-card__caption">Accès en écriture sur catalogue, sessions, réalisations.</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-card__header">
+            <div><div class="kpi-card__label">Lecteurs (managers)</div></div>
+            <div class="kpi-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+          </div>
+          <div class="kpi-card__value"><span data-count-up data-target="6" data-format="int">0</span></div>
+          <div class="kpi-card__caption">Consultation en lecture seule — majorité managers de département.</div>
+          <div class="kpi-card__gauge-row">
+            <svg class="s-gauge" viewBox="0 0 200 56" preserveAspectRatio="none" data-pct="60" data-delay="500" role="img" aria-label="Progression 60%">
+              <path class="s-gauge__track" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <path class="s-gauge__fill" d="M 8 44 C 38 44, 60 8, 100 8 C 140 8, 162 44, 192 44"/>
+              <circle class="s-gauge__endpoint" cx="8" cy="44" r="4.5"/>
+            </svg>
+            <span class="kpi-card__pct">60%</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Légende des rôles -->
+      <section class="panel mb-6" data-aos="fade-up">
+        <div class="panel__header">
+          <div>
+            <div class="panel__title">Matrice des rôles applicatifs</div>
+            <div class="panel__subtitle">Périmètre fonctionnel par profil d'utilisateur</div>
+          </div>
+        </div>
+        <div class="panel__body">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+            <div class="border rounded-lg p-4" style="border-color: var(--border-soft);">
+              <div class="flex items-center gap-2 mb-3">
+                <div class="w-8 h-8 rounded-lg grid place-items-center" style="background: rgba(47,163,107,0.12); color: var(--sonasid-green);">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div class="font-display font-semibold">Administrateur</div>
+              </div>
+              <p class="text-xs text-secondary leading-relaxed">
+                Tous droits : gestion des utilisateurs, configuration applicative, accès à l'ensemble des données et exports.
+              </p>
+            </div>
+
+            <div class="border rounded-lg p-4" style="border-color: var(--border-soft);">
+              <div class="flex items-center gap-2 mb-3">
+                <div class="w-8 h-8 rounded-lg grid place-items-center" style="background: rgba(201,122,61,0.12); color: var(--sonasid-orange);">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M17 3l4 4-11 11H6v-4z"/></svg>
+                </div>
+                <div class="font-display font-semibold">Gestionnaire</div>
+              </div>
+              <p class="text-xs text-secondary leading-relaxed">
+                Écriture sur catalogue, sessions, réalisations et évaluations. Lecture sur budget et utilisateurs.
+              </p>
+            </div>
+
+            <div class="border rounded-lg p-4" style="border-color: var(--border-soft);">
+              <div class="flex items-center gap-2 mb-3">
+                <div class="w-8 h-8 rounded-lg grid place-items-center" style="background: rgba(61,82,102,0.10); color: var(--sonasid-steel);">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/></svg>
+                </div>
+                <div class="font-display font-semibold">Manager</div>
+              </div>
+              <p class="text-xs text-secondary leading-relaxed">
+                Lecture sur l'effectif de son département, sessions et réalisations. Peut demander des inscriptions.
+              </p>
+            </div>
+
+            <div class="border rounded-lg p-4" style="border-color: var(--border-soft);">
+              <div class="flex items-center gap-2 mb-3">
+                <div class="w-8 h-8 rounded-lg grid place-items-center" style="background: var(--surface-hover); color: var(--text-secondary);">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
+                <div class="font-display font-semibold">Lecteur</div>
+              </div>
+              <p class="text-xs text-secondary leading-relaxed">
+                Consultation en lecture seule sur l'ensemble des modules — principalement destiné au reporting.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tableau des utilisateurs -->
+      <section class="panel" data-aos="fade-up">
+        <div class="panel__header">
+          <div>
+            <div class="panel__title">Comptes utilisateurs</div>
+            <div class="panel__subtitle">Tous comptes confondus — tri par dernier accès</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <select class="filter-select" id="filter-role" aria-label="Filtrer par rôle">
+              <option value="">Tous rôles</option>
+              <option value="admin">Administrateur</option>
+              <option value="gestionnaire">Gestionnaire</option>
+              <option value="manager">Manager</option>
+              <option value="lecteur">Lecteur</option>
+            </select>
+          </div>
+        </div>
+        <div class="panel__body--flush">
+          <div class="scrollable-x">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Utilisateur</th>
+                  <th class="hide-mobile">E-mail</th>
+                  <th>Rôle</th>
+                  <th class="hide-mobile">Département</th>
+                  <th class="hide-mobile">Site</th>
+                  <th class="hide-mobile">Dernier accès</th>
+                  <th>Statut</th>
+                  <th class="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="users-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    SonasidAuth.requireSession();
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const roleColor = {
+        admin: "green",
+        gestionnaire: "orange",
+        manager: "",
+        lecteur: ""
+      };
+
+      function renderTable() {
+        const filter = document.getElementById("filter-role").value;
+        const rows = SonasidData.utilisateurs
+          .filter(u => !filter || u.role === filter)
+          .sort((a,b) => b.dernierAcces.localeCompare(a.dernierAcces));
+        const tbody = document.getElementById("users-body");
+
+        tbody.innerHTML = rows.map((u, i) => {
+          const dep = SonasidHelpers.getDepartement(u.departement);
+          const initials = u.nom.split(" ").map(p => p[0]).join("").toUpperCase().slice(0,2);
+          return `
+            <tr data-aos="fade-up" data-aos-delay="${Math.min(i, 8) * 40}">
+              <td>
+                <div class="cell-user">
+                  <div class="cell-user__avatar cell-user__avatar--steel">${initials}</div>
+                  <div>
+                    <div class="cell-user__name">${u.nom}</div>
+                    <div class="cell-user__meta">${u.id}</div>
+                  </div>
+                </div>
+              </td>
+              <td class="hide-mobile"><a href="mailto:${u.email}" class="text-secondary hover:text-green transition-colors">${u.email}</a></td>
+              <td>${SonasidRender.tag(SonasidHelpers.roleLabel(u.role), roleColor[u.role])}</td>
+              <td class="hide-mobile cell-secondary">${dep ? dep.libelle : "—"}</td>
+              <td class="hide-mobile">
+                <div class="flex items-center gap-1.5 text-xs">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" class="text-muted"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  ${u.site}
+                </div>
+              </td>
+              <td class="hide-mobile">
+                <span class="font-mono text-xs">${u.dernierAcces.replace(" ", " · ")}</span>
+              </td>
+              <td>${SonasidRender.badge(u.statut)}</td>
+              <td class="text-right">
+                <button class="topbar__icon-btn" aria-label="Modifier" style="display: inline-grid; width: 32px; height: 32px;" onclick="alert('Édition utilisateur à brancher sur Flask /api/utilisateurs/${u.id}')">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M17 3l4 4-11 11H6v-4z"/></svg>
+                </button>
+              </td>
+            </tr>`;
+        }).join("");
+      }
+
+      document.getElementById("filter-role").addEventListener("change", renderTable);
+      document.getElementById("btn-add-user").addEventListener("click", () => {
+        alert("Création d'utilisateur à brancher sur Flask /api/utilisateurs (POST). En attente de la mise en place de l'annuaire LDAP Sonasid.");
+      });
+
+      renderTable();
+    });
+  </script>
+</body>
+</html>
